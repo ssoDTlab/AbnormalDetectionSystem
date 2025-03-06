@@ -1,0 +1,7 @@
+PySide6
+opencv-python
+numpy
+pyautogui
+tensorflow
+scikit-learn
+matplotlib
