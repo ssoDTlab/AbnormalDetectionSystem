@@ -5,7 +5,7 @@ This project is a modular application that performs real-time video capture and 
 
 ---
 
-## 📖 Description
+## Description
 
 - **Multi-threading**: `Thread_in` (video capture) and `Thread_out` (video processing) run concurrently, improving efficiency.  
 - **Real-time Video Processing**: Utilizes OpenCV to capture from webcams or video files, displaying frames in a PySide6 GUI.  
@@ -14,7 +14,7 @@ This project is a modular application that performs real-time video capture and 
 - **Keyboard Automation**: Uses `pyautogui` to automate **Alt+Tab** or other keyboard events when certain conditions (e.g., edge intensity or ROI triggers) are met.
 
 ---
-
+## Repository Structure
 ```bash
 AbnormalDetectionSystem/
 ├ code
@@ -26,4 +26,10 @@ AbnormalDetectionSystem/
 ├── requirements.txt   # List of required Python packages
 └── README.md          # This file
 
+```
+
+🚀 Usage
+```bash
+pip install -r requirements.txt
+python main.py
 ```
