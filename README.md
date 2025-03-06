@@ -14,3 +14,16 @@ This project is a modular application that performs real-time video capture and 
 - **Keyboard Automation**: Uses `pyautogui` to automate **Alt+Tab** or other keyboard events when certain conditions (e.g., edge intensity or ROI triggers) are met.
 
 ---
+
+```bash
+AbnormalDetectionSystem/
+├ code
+  ├── config.py          # Global configurations and shared variables
+  ├── capture.py         # Video capture module (Thread_in class)
+  ├── processing.py      # Video processing module (Thread_out class and helper functions)
+  ├── ui.py              # GUI implementation with PySide6
+  ├── main.py            # Application entry point
+├── requirements.txt   # List of required Python packages
+└── README.md          # This file
+
+```
