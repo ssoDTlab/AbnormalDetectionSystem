@@ -30,7 +30,7 @@ class Window(QMainWindow):
         self.isPlay = False
         self.y_max = 0
 
-        # Edge가 탐지된 동영상의 실시간 그래프 그리기
+        # Draw a real-time graph of the video where Edge is detected
         self.canvas = FigureCanvas(Figure(figsize=(0, 0.5)))
         self.axes = self.canvas.figure.subplots()
         n_data = 50
@@ -48,7 +48,7 @@ class Window(QMainWindow):
         self.labeling_capture = None
         self.labeling_Ground_truth = []
         self.cnt = 0
-        self.mouse_cnt = 0  # ex6-1.add
+        self.mouse_cnt = 0  
 
         # roi
         self.roi_x1 = 0
@@ -61,10 +61,10 @@ class Window(QMainWindow):
         self.img_size = QSize(640, 480)
         self.label_image.setFixedSize(self.img_size)
 
-        self.scroll_bar = QScrollBar(Qt.Horizontal)  # 수평 스크롤바
-        self.scroll_bar.setMinimum(0)  # 최소값 설정
-        self.scroll_bar.setMaximum(100)  # 최대값 설정
-        self.scroll_bar.setValue(0)  # 초기 값 설정
+        self.scroll_bar = QScrollBar(Qt.Horizontal) 
+        self.scroll_bar.setMinimum(0)  
+        self.scroll_bar.setMaximum(100)  
+        self.scroll_bar.setValue(0)  
         self.scroll_bar.setVisible(False)
         self.scroll_bar.valueChanged.connect(self.change_frame)
 
@@ -79,7 +79,7 @@ class Window(QMainWindow):
         self.edit_text_labeling.setFixedWidth(20)
         self.edit_text_labeling.setMaxLength(1)
 
-        # 구간 레이블링 버튼
+        # Section labeling button
         self.button_start_labeling = QPushButton("section(Start)")
         self.button_end_labeling = QPushButton("section(End)")
         self.button_end_labeling.setEnabled(False)
@@ -99,7 +99,7 @@ class Window(QMainWindow):
         layout_save_training.addWidget(self.button_save_label)
         layout_save_training.addWidget(self.button_training)
 
-        # mean shift (14week)
+        # mean shift 
         self.button_mean_shift = QPushButton("Mean Shift")
         self.button_mean_shift.setEnabled(False)
         layout_save_training.addWidget(self.button_mean_shift
@@ -125,31 +125,32 @@ class Window(QMainWindow):
 
         self.label_clip_image = QLabel(self)
 
-        self.combobox_haar = QComboBox()  # ex6-1.add
-        for xml_file in os.listdir(cv2.data.haarcascades):  # ex6-1.add
-            if xml_file.endswith(".xml"):  # ex6-1.add
-                self.combobox_haar.addItem(xml_file)  # ex6-1.add
-        self.button_haar_start = QPushButton("Start(Face_Det)")  # ex6-1.add
-        self.button_haar_stop = QPushButton("Stop/Close")  # ex6-1.add
+        self.combobox_haar = QComboBox()  
+        for xml_file in os.listdir(cv2.data.haarcascades):  
+            if xml_file.endswith(".xml"):  
+                self.combobox_haar.addItem(xml_file)  
+        self.button_haar_start = QPushButton("Start(Face_Det)")  
+        self.button_haar_stop = QPushButton("Stop/Close")  
 
-        self.button_haar_start.setEnabled(False)  # ex6-1.add
-        self.button_haar_stop.setEnabled(False)  # ex6-1.add
+        self.button_haar_start.setEnabled(False)  
+        self.button_haar_stop.setEnabled(False)  
 
-        self.button_diff_img = QPushButton("Diff Image")  # ex6-1.add
-        self.button_diff_img.setEnabled(False)  # ex6-1.add
+        self.button_diff_img = QPushButton("Diff Image")  
+        self.button_diff_img.setEnabled(False)  
 
 
 
-        layout_haar = QHBoxLayout()  # ex6-1.add
-        layout_haar.addWidget(self.combobox_haar)  # ex6-1.add
-        layout_haar.addWidget(self.button_haar_start)  # ex6-1.add
-        layout_haar.addWidget(self.button_haar_stop)  # ex6-1.add
+        layout_haar = QHBoxLayout() 
+        layout_haar.addWidget(self.combobox_haar)  
+        layout_haar.addWidget(self.button_haar_start)  
+        layout_haar.addWidget(self.button_haar_stop)  
 
-        layout_clip_haar = QVBoxLayout()  # ex6-1.add
+        layout_clip_haar = QVBoxLayout() 
         layout_clip_haar.addWidget(self.canvas)
-        layout_clip_haar.addWidget(self.label_clip_image)  # ex6-1.add
-        layout_clip_haar.addLayout(layout_haar)  # ex6-1.add
-        layout_clip_haar.addWidget(self.button_diff_img)  # ex6-1.add
+        layout_clip_haar.addWidget(self.label_clip_image)  
+        layout_clip_haar.addLayout(layout_haar) 
+        layout_clip_haar.addWidget(self.button_diff_img)  
+        
         # init widgets for perspective image
         self.m_pos_cnt = 0
 
@@ -270,7 +271,7 @@ class Window(QMainWindow):
         # layout for image and graph
         layout_img_canvas = QHBoxLayout()
         layout_img_canvas.addLayout(layout_img_scroll)
-        layout_img_canvas.addLayout(layout_clip_haar)  # ex6-1.add
+        layout_img_canvas.addLayout(layout_clip_haar) 
 
         # Main layout
         layout = QVBoxLayout()
@@ -295,14 +296,14 @@ class Window(QMainWindow):
         self.button_perspective_img.clicked.connect(self.method_perspective_image)
         self.button_geometry_img.clicked.connect(self.method_geometry)
 
-        self.button_restart.clicked.connect(self.restart_alt_tab) # mission
-        self.button_roi.clicked.connect(self.roi) # mission
-        self.button_diff_img.clicked.connect(self.diff_img_start)  # ex6-1.add
-        self.combobox_haar.currentTextChanged.connect(self.set_haar_model)  # ex6-1.add
-        self.button_haar_start.clicked.connect(self.start_haar)  # ex6-1.add
-        self.button_haar_stop.clicked.connect(self.kill_thread)  # ex6-1.add
+        self.button_restart.clicked.connect(self.restart_alt_tab) 
+        self.button_roi.clicked.connect(self.roi) 
+        self.button_diff_img.clicked.connect(self.diff_img_start)  
+        self.combobox_haar.currentTextChanged.connect(self.set_haar_model)  
+        self.button_haar_start.clicked.connect(self.start_haar)  
+        self.button_haar_stop.clicked.connect(self.kill_thread)  
 
-        self.button_mean_shift.clicked.connect(self.start_mean_shift) # 14week add
+        self.button_mean_shift.clicked.connect(self.start_mean_shift) 
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.display_video_stream_v2)
@@ -325,7 +326,7 @@ class Window(QMainWindow):
         self.load_img_func()
 
     def method_perspective_image(self):
-        rows, cols = self.m_proc_img.shape[:2]  # channel 여부 무시
+        rows, cols = self.m_proc_img.shape[:2]  
         x1 = self.Ledit_x1.text()
         y1 = self.Ledit_y1.text()
 
@@ -338,7 +339,7 @@ class Window(QMainWindow):
         x4 = self.Ledit_x4.text()
         y4 = self.Ledit_y4.text()
 
-        # pts1 좌표 표시
+
         pts1 = np.float32([[x1, y1], [x2, y2], [x3, y3], [x4, y4]])
         pts2 = np.float32([[0, 0], [cols - 1, 0], [cols - 1, rows - 1], [0, rows - 1]])
         Mat1 = cv2.getPerspectiveTransform(pts1, pts2)
@@ -355,14 +356,14 @@ class Window(QMainWindow):
             f_image_p1 = cv2.flip(ori_img, 1)
             out_img = f_image_p1
         elif index == 1:  # translation
-            rows, cols = ori_img.shape[:2]  # channel 여부 무시
+            rows, cols = ori_img.shape[:2]  
             Mat = np.float32([[1, 0, 50],
                               [0, 1, 20]])
             t_image = cv2.warpAffine(ori_img, Mat, (cols, rows),
                                      borderMode=cv2.BORDER_REFLECT)
             out_img = t_image
         elif index == 2:  # rotation
-            rows, cols = ori_img.shape[:2]  # channel 여부 무시
+            rows, cols = ori_img.shape[:2] 
             Mat = cv2.getRotationMatrix2D((cols / 2, rows / 2), 45, 1.0)
             r_image = cv2.warpAffine(ori_img, Mat, (cols, rows),
                                      borderMode=cv2.BORDER_REPLICATE)
@@ -370,7 +371,6 @@ class Window(QMainWindow):
         self.update_image(out_img)
 
     def greetings_binary(self):
-        # 사용자가 입력한 텍스트를 출력
         path = self.edit.text()
 
         img = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
@@ -424,8 +424,8 @@ class Window(QMainWindow):
                 self.mouse_cnt = 0
             return
 
-        x = event.position().x() - self.label_image.x()  # 큐 레이블이 윈도우에서 x만큼 떨어진 곳에 배치해서
-        y = event.position().y() - self.label_image.y()  # 큐 레이블이 윈도우에서 y만큼 떨어진 곳에 배치해서
+        x = event.position().x() - self.label_image.x()  
+        y = event.position().y() - self.label_image.y()  
         x, y = int(x), int(y)
 
         if self.m_pos_cnt == 4:
@@ -454,18 +454,18 @@ class Window(QMainWindow):
         self.update_image(self.m_proc_img)
 
     def start_haar(self):
-        self.button_haar_start.setEnabled(False)  # ex6-1.add
-        self.button_haar_stop.setEnabled(True)  # ex6-1.add
-        self.th_out.set_file(self.combobox_haar.currentText())  # ex6-1.add
-        self.th_out.is_haar = True  # ex6-1.add
-
+        self.button_haar_start.setEnabled(False)  
+        self.button_haar_stop.setEnabled(True)  
+        self.th_out.set_file(self.combobox_haar.currentText())  
+        self.th_out.is_haar = True  
+        
     def set_haar_model(self, text):
-        self.th_out.set_file(text)  # ex6-1.add
+        self.th_out.set_file(text)  
 
 
     def diff_img_start(self):
         print("Diff image...")
-        self.th_out.is_diff = True  # ex6-1.add
+        self.th_out.is_diff = True  
 
     def training_perceptron(self):
         print("Training...")
@@ -497,7 +497,6 @@ class Window(QMainWindow):
         train_x = train_x[:, np.newaxis]
         # train_y = train_y[:,np.newaxis]
 
-        # 입력 정규화
         # scaler = MinMaxScaler()
         # scaler.fit(train_x)
         # train_x = scaler.transform(train_x)
@@ -574,10 +573,10 @@ class Window(QMainWindow):
 
         print("Loading video is complete")
         print(f"The number of frame: {len(self.frame_list)}  Ground-truth len: {len(self.labeling_Ground_truth)}")
-        self.scroll_bar.setMaximum(len(self.frame_list) - 1)  # 최대값 설정
+        self.scroll_bar.setMaximum(len(self.frame_list) - 1)  
         self.scroll_bar.setVisible(True)
 
-        # scroll의 index number QLabel과 Labeling의 QLineEdit을 초기값 설정
+        # index number QLabel in scroll and QLineEdit in Labeling set initial values
         self.label_idx_scroll.setText("0")
         self.edit_text_labeling.setText(f"{self.labeling_Ground_truth[0]}")
 
@@ -647,7 +646,7 @@ class Window(QMainWindow):
 
         min_val = min(self.cnt_edges)
         max_val = max(self.cnt_edges)
-        # Min-Max 정규화
+
         if min_val != max_val :
             normalized_value = (cnt_edge - min_val) / (max_val - min_val)
             return normalized_value
@@ -674,12 +673,12 @@ class Window(QMainWindow):
         project.config.sema1.acquire()
         project.config.sema2.acquire()
 
-        prevTime = time.time()  # 현재 시간
+        prevTime = time.time()  
         self.canvas.draw()
         Processing_stop = False
         project.config.sema0_1.release()
         project.config.sema0_2.release()
-        curTime = time.time()  # 현재 시간
+        curTime = time.time()  
         sec = curTime - prevTime
         #print(sec % 60)
 
@@ -697,7 +696,6 @@ class Window(QMainWindow):
             # print(self.qu_img_to_app.qsize())
             if self.EDGE_TYPE == 'Canny':
                 if cnt_edge is not None:
-                    # 정규화된 값 리스트 업데이트
                     normalized_value = self.normalize_cnt_edges(cnt_edge)
                     print(normalized_value)
                     if 0.89 > normalized_value > 0.80: self.flag = True
@@ -786,10 +784,10 @@ class Window(QMainWindow):
             # self.setup_camera(0)
 
     def createThread_start(self, vid):
-        self.button_haar_start.setEnabled(True)  # ex6-1.add
-        self.button_diff_img.setEnabled(True)  # ex6-1.add
-        self.button_restart.setEnabled(True) # mission
-        self.button_roi.setEnabled(True) # mission
+        self.button_haar_start.setEnabled(True)  
+        self.button_diff_img.setEnabled(True) 
+        self.button_restart.setEnabled(True) 
+        self.button_roi.setEnabled(True) 
         self.button_mean_shift.setEnabled(True)
 
         self.MODE_VIDEO = True
@@ -823,9 +821,9 @@ class Window(QMainWindow):
         if self.labeling_capture is not None:
             self.labeling_capture.release()
 
-        self.button_mean_shift.setEnabled(False) # 14week add
-        self.button_haar_start.setEnabled(False)  # ex6-1.add
-        self.button_haar_stop.setEnabled(False)  # ex6-1.add
-        self.button_diff_img.setEnabled(False)  # ex6-1.add
-        self.button_restart.setEnabled(False) # mission
-        self.button_roi.setEnabled(False) # misson
+        self.button_mean_shift.setEnabled(False) 
+        self.button_haar_start.setEnabled(False) 
+        self.button_haar_stop.setEnabled(False)  
+        self.button_diff_img.setEnabled(False)  
+        self.button_restart.setEnabled(False) 
+        self.button_roi.setEnabled(False) 
