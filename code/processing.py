@@ -41,7 +41,7 @@ class Thread_out(threading.Thread):
         self.w = 0
         self.h = 0
 
-        self.isStart = False # Alt + tab 한 번만 실행
+        self.isStart = False # Alt + tab
 
         self.roi_frame = None
 
@@ -78,11 +78,11 @@ class Thread_out(threading.Thread):
                     frame = cv2.rectangle(frame, pos_ori, pos_end, color, 2)
 
                 if self.is_haar is True:
-                    cascade = cv2.CascadeClassifier(self.trained_file)  # ex6-1.add
-                    frame = self.haar(cascade, frame)  # ex6-1.add
+                    cascade = cv2.CascadeClassifier(self.trained_file) 
+                    frame = self.haar(cascade, frame)  
 
                 if self.is_diff is True:
-                    frame = self.diff_img(frame)  # ex6-1.add
+                    frame = self.diff_img(frame) 
 
                 if self.is_mean is True:
                     frame = self.mean_shift(frame)
@@ -130,11 +130,11 @@ class Thread_out(threading.Thread):
         if self.roi_x1 <= cx <= self.roi_x2 and self.roi_y1 <= cy <= self.roi_y2 and not self.isStart:
             self.isStart = True
             print("!!!!!")
-            pyautogui.hotkey('command', 'tab')  # Command + Tab 기능
+            pyautogui.hotkey('command', 'tab')  # Command + Tab function
 
         return img2
 
-    # ex6-1.add
+    
     def haar(self, cascade, frame):
         frame = cv2.resize(frame, dsize=None, fx=0.375, fy=0.375)
         # Reading frame in gray scale to process the pattern
@@ -159,13 +159,12 @@ class Thread_out(threading.Thread):
 
         return frame
 
-    # ex6-1.add
+
     def diff_img(self, frame):
         img = cv2.resize(frame, dsize=None, fx=0.375, fy=0.375)
-        current_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # 그레이 스케일 변환
+        current_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  
 
         if self.pre_frame is None:
-            # 현재 회색조 영상을 self.pre_frame에 저장하는 코드 작성
             self.pre_frame = current_gray.copy()
             return frame
         else:
@@ -201,9 +200,9 @@ class Thread_out(threading.Thread):
             cv2.rectangle(thresh, (r_start, c_start), (r_end, c_end), (124,252,0), 2)
             return thresh
 
-    # ex6-1 add
+
     def set_file(self, fname):
-        self.trained_file = os.path.join(cv2.data.haarcascades, fname)  # ex6-1 add
+        self.trained_file = os.path.join(cv2.data.haarcascades, fname)  
 
     def sum_edge(self, frame):
         ratio = 480 / frame.shape[0]
