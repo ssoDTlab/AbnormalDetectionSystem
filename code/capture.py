@@ -28,7 +28,7 @@ class Thread_in(threading.Thread):
                 project.config.sema1.release()
                 project.config.sema0_1.acquire()
 
-            curTime = time.time()  # 현재 시간
+            curTime = time.time() 
             sec = curTime - prevTime
             if sec > 1 / fps:
                 prevTime = curTime
